@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
@@ -32,8 +33,8 @@ public class Todo {
     @Size(min=10, message="Task must not be less than 10 characters.")
     private String task;
     
-    @NotEmpty(message="Due must be set")
-    @JsonbDateFormat(value="yyyy-MM-dd0")
+    @NotNull(message="Due must be set")
+    @JsonbDateFormat(value="yyyy-MM-dd")
     @FutureOrPresent
     private LocalDate   dueDate;
     

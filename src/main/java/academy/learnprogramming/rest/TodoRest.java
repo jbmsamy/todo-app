@@ -56,11 +56,11 @@ public class TodoRest {
     
     @Path("/delete")
     @DELETE
-    @POST
     public Response delete(Todo todo) {
         todoService.delete(todo);
         return Response.ok().build();
     }
+    
     @Path("/list")
     @GET
     public Response todoList() {
@@ -68,9 +68,11 @@ public class TodoRest {
         return Response.ok(todoList).build();
     }
     
-    public Response markAsComplete(@QueryParam("id") Long id) {
+    @POST   
+    @Path("status/{id}")
+    public Response markAsComplete(@PathParam("id") Long id) {
         Todo todo = this.todoService.findById(id);
-        todo.setCompletionDate(LocalDate.now());
+        //todo.setCompletionDate(LocalDate.now());
         todo.setCompleted(true);
         todo = this.todoService.update(todo);
         return Response.ok(todo).build();

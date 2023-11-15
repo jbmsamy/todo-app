@@ -9,13 +9,15 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import academy.learnprogramming.entity.Todo;
 import java.util.List;
-
+import java.util.logging.Logger;
 /**
  *
  * @author Jayabaskar Munusamy
  */
 @Transactional
 public class TodoService {
+    
+    private static final Logger log = Logger.getLogger(TodoService.class.toString());
     
     @PersistenceContext
     private EntityManager entityManager;
@@ -26,7 +28,13 @@ public class TodoService {
     }
     
     public Todo update(Todo todo)    {
-        return entityManager.merge(todo);
+        Todo updatedtodo = null;
+        try {
+            updatedtodo = this.entityManager.merge(todo);             
+        }catch(Throwable t) {
+            log.info(t.getMessage());
+        }
+        return updatedtodo;
     }
 
     public Todo findById(Long id) {
